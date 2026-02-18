@@ -17,7 +17,7 @@ public class Inventory {
                           Builder builder, String model,
                           Type type, Wood backWood, Wood topWood){
         GuitarSpec guitarSpec = new GuitarSpec(builder, type, backWood, topWood, model);
-        Guitar guitar = new Guitar("1215235", 100, guitarSpec);
+        Guitar guitar = new Guitar(serialNumber, price, guitarSpec);
         guitars.add(guitar);
     }
 
@@ -31,7 +31,8 @@ public class Inventory {
         return null;
     }
 
-    public Guitar search(GuitarSpec searchGuitar){
+    public List<Guitar> search(GuitarSpec searchGuitar){
+        List<Guitar> matchingGuitars = new LinkedList<>();
         for(Guitar g: guitars){
             GuitarSpec guitar = g.guitarSpec;
 
@@ -56,8 +57,8 @@ public class Inventory {
                     (!topWood.equals(guitar.getTopWood())))
                 continue;
 
-            return g;
+            matchingGuitars.add(g);
         }
-        return null;
+        return matchingGuitars;
     }
 }
