@@ -32,7 +32,8 @@ public class Guitar {
                 ", type='" + guitarSpec.getType() + '\'' +
                 ", backWood='" + guitarSpec.getBackWood() + '\'' +
                 ", topWood='" + guitarSpec.getTopWood() + '\'' +
-                ", price=" + price +
+                ", price=" + price + '\'' +
+                ", numStrings=" + guitarSpec.getNumStrings() +
                 '}';
     }
 }
