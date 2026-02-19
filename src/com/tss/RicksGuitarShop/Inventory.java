@@ -8,37 +8,47 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Inventory {
-    private final List<Guitar> guitars;
+    private final List<Instrument> instruments;
     public Inventory(){
-        guitars = new LinkedList<>();
+        instruments = new LinkedList<>();
     }
 
-    public void addGuitar(String serialNumber, double price,
-                          Builder builder, String model,
-                          Type type, Wood backWood, Wood topWood, int numStrings){
-        GuitarSpec guitarSpec = new GuitarSpec(builder, type, backWood, topWood, model, numStrings);
-        Guitar guitar = new Guitar(serialNumber, price, guitarSpec);
-        guitars.add(guitar);
+    public void addInstrument(String serialNumber, double price, InstrumentSpec spec){
+        Instrument instrument = null;
+        if(spec instanceof GuitarSpec){
+            instrument = new Guitar(serialNumber, price, (GuitarSpec)spec);
+        }
+        else if(spec instanceof MandolinSpec){
+            instrument = new Mandolin(serialNumber, price, (MandolinSpec)spec);
+        }
+        instruments.add(instrument);
     }
 
-    public Guitar getGuitar(String serialNumber){
-        for (Guitar guitar : guitars) {
-            if (guitar.getSerialNumber().equals(serialNumber)) {
+    public Instrument getInstrument(String serialNumber){
+        for (Instrument Instrument : instruments) {
+            if (Instrument.getSerialNumber().equals(serialNumber)) {
 
-                return guitar;
+                return Instrument;
             }
         }
         return null;
     }
 
-    public List<Guitar> search(GuitarSpec searchGuitar){
-        List<Guitar> matchingGuitars = new LinkedList<>();
-        for(Guitar guitar: guitars){
-            if(guitar.guitarSpec.matches(searchGuitar))
-                matchingGuitars.add(guitar);
-        }
-        return matchingGuitars;
+    public List<Guitar> search(GuitarSpec searchInstrument){
+        List<Guitar> matching = new LinkedList<>();
+        for(Instrument instrument: instruments){
+            if(instrument.getSpec().matches(searchInstrument))
+                matching.add(((Guitar)instrument));
+        }   
+        return matching;
     }
 
-
+    public List<Mandolin> search(MandolinSpec searchInstrument){
+        List<Mandolin> matching = new LinkedList<>();
+        for(Instrument instrument: instruments){
+            if(instrument.getSpec().matches(searchInstrument))
+                matching.add(((Mandolin)instrument));
+        }
+        return matching;
+    }
 }
