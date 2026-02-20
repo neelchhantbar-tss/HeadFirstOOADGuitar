@@ -1,33 +1,50 @@
 package com.tss.RicksGuitarShop;
 
-import com.tss.RicksGuitarShop.DataTypes.Builder;
-import com.tss.RicksGuitarShop.DataTypes.Style;
-import com.tss.RicksGuitarShop.DataTypes.Type;
-import com.tss.RicksGuitarShop.DataTypes.Wood;
+import com.tss.RicksGuitarShop.DataTypes.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FindGuitarTester {
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
         initializeInventory(inventory);
 
-        GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER,"Stratocastor", 12);
-        MandolinSpec whatNeelLikes = new MandolinSpec(Builder.FENDER, Type.ACOUSTIC,Wood.CEDAR, Wood.CEDAR, "ABC", Style.A);
+        Map<String, Object> erinInstrumentProperties = new HashMap<>();
+        erinInstrumentProperties.put("InstrumentType", InstrumentType.GUITAR);
+        erinInstrumentProperties.put("Builder", Builder.FENDER);
+        erinInstrumentProperties.put("Type", Type.ELECTRIC);
+        erinInstrumentProperties.put("BackWood", Wood.ALDER);
+        erinInstrumentProperties.put("TopWood", Wood.ALDER);
+        erinInstrumentProperties.put("Model", "Stratocastor");
+        erinInstrumentProperties.put("NumberOfStrings", 12);
 
-        List<Instrument> guitars = inventory.search(whatErinLikes);
+        Map<String, Object> neelInstrumentProperties = new HashMap<>();
+        neelInstrumentProperties.put("InstrumentType", InstrumentType.MANDOLIN);
+        neelInstrumentProperties.put("Builder", Builder.FENDER);
+        neelInstrumentProperties.put("Type", Type.ACOUSTIC);
+        neelInstrumentProperties.put("BackWood", Wood.CEDAR);
+        neelInstrumentProperties.put("TopWood", Wood.CEDAR);
+        neelInstrumentProperties.put("Model", "ABC");
+        neelInstrumentProperties.put("Style", Style.A);
 
-        if(guitars != null && !guitars.isEmpty()) {
-            System.out.println(guitars);
+        InstrumentSpec whatErinLikes = new InstrumentSpec(erinInstrumentProperties);
+        InstrumentSpec whatNeelLikes = new InstrumentSpec(neelInstrumentProperties);
+
+        List<Instrument> erinLikeList = inventory.search(whatErinLikes);
+
+        if(erinLikeList != null && !erinLikeList.isEmpty()) {
+            System.out.println(erinLikeList);
         }
         else{
             System.out.println("Sorry, Erin !");
         }
 
-        List<Instrument> mandolins = inventory.search(whatNeelLikes);
+        List<Instrument> neelLikeList = inventory.search(whatNeelLikes);
 
-        if(mandolins != null && !mandolins.isEmpty()){
-            System.out.println(mandolins);
+        if(neelLikeList != null && !neelLikeList.isEmpty()){
+            System.out.println(neelLikeList);
         }
         else{
             System.out.println("Sorry, Neel !");
@@ -35,10 +52,26 @@ public class FindGuitarTester {
     }
 
     private static void initializeInventory(Inventory inventory){
-        GuitarSpec spec = new GuitarSpec(Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER, "Stratocastor", 12);
-        inventory.addInstrument("V95693", 1499.95, spec);
+        Map<String, Object> guitarProperties = new HashMap<>();
+        guitarProperties.put("InstrumentType", InstrumentType.GUITAR);
+        guitarProperties.put("Builder", Builder.FENDER);
+        guitarProperties.put("Type", Type.ELECTRIC);
+        guitarProperties.put("BackWood", Wood.ALDER);
+        guitarProperties.put("TopWood", Wood.ALDER);
+        guitarProperties.put("Model", "Stratocastor");
+        guitarProperties.put("NumberOfStrings", 12);
 
-        MandolinSpec spec1 = new MandolinSpec(Builder.FENDER, Type.ACOUSTIC,Wood.CEDAR, Wood.CEDAR, "ABC", Style.A);
-        inventory.addInstrument("WGW342", 1300, spec1);
+        Map<String, Object> mandolinProperties = new HashMap<>();
+        mandolinProperties.put("InstrumentType", InstrumentType.MANDOLIN);
+        mandolinProperties.put("Builder", Builder.FENDER);
+        mandolinProperties.put("Type", Type.ACOUSTIC);
+        mandolinProperties.put("BackWood", Wood.ALDER);
+        mandolinProperties.put("TopWood", Wood.CEDAR);
+        mandolinProperties.put("Model", "ABC");
+        mandolinProperties.put("Style", Style.A);
+
+
+        inventory.addInstrument("V95693", 1499.95, new InstrumentSpec(guitarProperties));
+        inventory.addInstrument("WGW342", 1300, new InstrumentSpec(mandolinProperties));
     }
 }
