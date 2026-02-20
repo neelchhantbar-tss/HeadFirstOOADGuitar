@@ -15,7 +15,7 @@ public class FindGuitarTester {
         GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER,"Stratocastor", 12);
         MandolinSpec whatNeelLikes = new MandolinSpec(Builder.FENDER, Type.ACOUSTIC,Wood.CEDAR, Wood.CEDAR, "ABC", Style.A);
 
-        List<Guitar> guitars = inventory.search(whatErinLikes);
+        List<Instrument> guitars = inventory.search(whatErinLikes);
 
         if(guitars != null && !guitars.isEmpty()) {
             System.out.println(guitars);
@@ -24,7 +24,7 @@ public class FindGuitarTester {
             System.out.println("Sorry, Erin !");
         }
 
-        List<Mandolin> mandolins = inventory.search(whatNeelLikes);
+        List<Instrument> mandolins = inventory.search(whatNeelLikes);
 
         if(mandolins != null && !mandolins.isEmpty()){
             System.out.println(mandolins);
